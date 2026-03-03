@@ -1,0 +1,154 @@
+import React, { useEffect, useState } from 'react'
+import OrderNavbar from './ordernavber'
+import OwnerNavbar from './navbertoowner';
+import api from '../api';
+
+export const Pendingorder = () => {
+    const [order, setorder] = useState([]); // ✅ array not string
+    const [loading, setLoading] = useState(false);
+    
+      const orderSchema = async () => {
+  try {
+    setLoading(true);
+    const res = await api.get("/api/owner/orderpending", { withCredentials: true });
+    
+    // console.log("API response:", res.data);
+
+    // ✅ Adjust depending on API shape
+    if (Array.isArray(res.data)) {
+      setorder(res.data);
+    } else if (res.data.orders) {
+      setorder(res.data.orders);
+    } else {
+      setorder([res.data]);
+    }
+
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+  useEffect(() => {
+    orderSchema();
+  }, []);
+
+      const process = async(id) => {
+
+        try {
+            await api.post(`/api/owner/orderProcess`,{id},
+                 {withCredentials: true})
+                 .then((res) => {
+                  alert(res.data.message)
+                    orderSchema(); // Refresh orders after processing
+                 })
+                 .catch((err) => console.log(err))
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    //  const cancel = async(id) => {
+    //     try {
+    //         await api.post(`/api/owner/ordercancel`,{id},
+    //              {withCredentials: true})
+    //              .then((res) => {
+    //               alert(res.data.message)
+    //               window.location.reload();
+    //              })
+    //              .catch((err) => console.log(err))
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
+  return (
+    <>
+    <OwnerNavbar />
+    <OrderNavbar />
+    <div className="mb-2 md:mb-3 lg:mb-3 w-[95%] mx-auto">
+        {loading && <p className="text-3xl font-bold">Loading...</p>}
+        {!loading && order.length === 0 ? (
+          <p className="text-xl font-semibold">No orders found</p>
+        ) : (
+          <>
+            <p>orders</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {order.map((order, i) => (
+                <div
+                  key={i}
+                  className="border rounded-lg shadow-md p-4 mb-4 bg-white"
+                >
+                    <div className="flex justify-between border-b pb-2 mb-3">
+        <button type="button" className='border px-4 mx-5 text-white bg-green-700 rounded-2xl my-2' onClick={() => process(order._id)}>Process</button>
+        {/* <button type="button" className='border px-4 mx-5 text-white bg-red-700 rounded-2xl my-2' onClick={() => cancel(order._id)}>cancel</button> */}
+     </div>
+                  {/* Order header */}
+                  <div className="flex justify-between border-b pb-2 mb-3">
+                    <p className="font-bold text-lg">Order #{order._id}</p>
+                    <p className="text-gray-600">Total: ₹{order.totalAmount}</p>
+                  </div>
+
+
+                  {/* admin details */}
+                    <div className="mb-3 border-2  p-3">
+                        <h3 className="font-semibold text-black underline mb-1 bold">marchent Details</h3>
+                        <p className="text-sm font-bold text-gray-600">
+                            {order.shop.map((shop, idx) => (
+                                <span key={idx}>
+                                    <p>{idx + 1}</p>
+                                    name : {shop.admin.number} <br />
+                                    marchant : {shop.admin.companyName} 
+                                    <p>location :  <a href={`https://www.google.com/maps/dir/?api=1&destination=${shop.admin.location.coordinates[1]},${shop.admin.location.coordinates[0]}`} target="_blank" rel="noopener noreferrer">View on Map</a></p>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 border-t pt-3">
+                                    {shop.items.map((data, index) => (
+                                        <div
+                                        key={index}
+                                        className="flex flex-col items-center border rounded-lg p-2"
+                                      >
+                                        <img
+                                          src={data.productId?.image[0]}
+                                          alt={data.productId?.name || "Product"}
+                                          className="w-20 h-20 object-cover rounded-md mb-2"
+                                        />
+                                        <p className="font-medium text-sm">{data.productId?.name}</p>
+                                        <p className="text-gray-600 text-sm">Qty: {data.quantity}</p>
+                                        <p className="font-semibold">₹{data.price}</p>
+                                      </div>
+                                    ))}
+                                    </div>
+                                    <p>----------</p>
+                                    <p>Amount : ₹{shop.subtotal}</p>
+
+                                    </span>
+                            ))}
+                                
+                        </p>
+                    </div>
+                            {/* user details */}
+                    {order.userId && (
+                    <div className="mb-3 border-2  p-3">
+                        <h3 className="font-semibold text-black mb-1 bold">User Details</h3>
+                        <p className="text-sm font-bold text-gray-600">
+                            name : {order.userId.number} <br />
+                            number : {order.number} <br />
+                            <p>location :  <a href={`https://www.google.com/maps/dir/?api=1&destination=${order.userId.location.coordinates[1]},${order.userId.location.coordinates[0]}`} target="_blank" rel="noopener noreferrer">View on Map</a></p>
+                        </p>
+                                                <p>totalAmount: ₹{order.totalAmount}</p>
+
+                    </div>
+                    )}
+
+                </div>
+              ))}
+
+              
+
+            </div>
+          </>
+        )}
+      </div>
+    </>
+    
+  )
+}
