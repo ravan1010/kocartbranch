@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import OrderNavbar from './ordernavber'
 import OwnerNavbar from './navbertoowner';
-import api from '../../../frontend/src/api';
+import api from '../api';
 
 export const Tocomplete = () => {
     const [order, setorder] = useState([]); // ✅ array not string
