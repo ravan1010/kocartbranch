@@ -6,7 +6,7 @@ const Ownerdashboard = () => {
 
 
     const [otp, setotp] = useState()
-    // const [open, setopen] = useState()
+    const [open, setopen] = useState()
 
     // const [error, setError] = useState('');
     // const [success, setsuccess] = useState('');
@@ -25,42 +25,42 @@ const Ownerdashboard = () => {
         fetchOTP()
     },[])
 
-//     const fetchDashboard = async () => {
-//                 try {
-//                     const res = await api.get('/api/owner/dashboard')
-//                     console.log(res.data.openORclose)
-//                     setopen(res.data.openORclose)
-//                 } catch (error) {
-//                     console.log(error)
-//                 }
-//         }
-// useEffect(() => {
-//   const loadData = async () => {
-//     await fetchDashboard()
-//   }
+    const fetchDashboard = async () => {
+                try {
+                    const res = await api.get('/api/owner/dashboard')
+                    console.log(res.data.openORclose)
+                    setopen(res.data.openORclose)
+                } catch (error) {
+                    console.log(error)
+                }
+        }
+useEffect(() => {
+  const loadData = async () => {
+    await fetchDashboard()
+  }
 
-//   loadData()
-// }, [])
+  loadData()
+}, [])
 
-//     const handleToggle = async () => {
+    const handleToggle = async () => {
 
-//     const newStatus = !open;
-//     setopen(newStatus);
+    const newStatus = !open;
+    setopen(newStatus);
 
-//     try {
-//       await api.post(
-//         "/api/owner/openORclose",
-//         { open: newStatus },
-//         { withCredentials: true }
-//       ).then((res) => {
-//         if (res.data.success === true) {
-//           fetchDashboard()
-//         }
-//       })
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
+    try {
+      await api.post(
+        "/api/owner/openORclose",
+        { open: newStatus },
+        { withCredentials: true }
+      ).then((res) => {
+        if (res.data.success === true) {
+          fetchDashboard()
+        }
+      })
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
 
 
@@ -78,7 +78,7 @@ const Ownerdashboard = () => {
                     </div>
                 </div>
 
-                {/* <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow">
               <div className="flex items-center">
                 <div className="p-4 flex rounded-full bg-green-100 text-green-600 ">
                   {open === false ? <>
@@ -101,7 +101,7 @@ const Ownerdashboard = () => {
                   />
                 </div>
               </div>
-            </div> */}
+            </div>
 
                 {Array.isArray(otp) && otp.map((product) => (
                     <div key={product._id} className="border rounded-2xl shadow hover:shadow-lg transition duration-300 m-1 my-2">
