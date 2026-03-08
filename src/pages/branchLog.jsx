@@ -54,7 +54,7 @@ const Branchlog = () => {
                     <form action="post" className="items-center p-2 pb-0.5" onSubmit={handleSubmit} >
 
                         <input 
-                        type='text'
+                        type='tel'
                         name='adminsignup'
                         placeholder='Number'
                         autoComplete='tel'
