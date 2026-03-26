@@ -8,7 +8,11 @@ const Ownerdashboard = () => {
 
   const [otp, setotp] = useState()
   const [open, setopen] = useState()
-  const [parcels, setParcels] = useState([]);
+  const [parcelsfrom, setParcelsfrom] = useState([]);
+  const [parcelsto, setParcelsto] = useState([]);
+  const [step, setStep] = useState(1);
+
+
 
   // const [error, setError] = useState('');
   // const [success, setsuccess] = useState('');
@@ -65,23 +69,41 @@ const Ownerdashboard = () => {
   };
 
 
- useEffect(() => {
-    getParcels();
-  }, []);
 
-  const getParcels = async () => {
+
+  const getParcelsfrom = async () => {
     try {
 
-      const res = await api.get("/api/parcelData");
+      const res = await api.get("/api/parcelfromData");
 
-      setParcels(res.data);
-      console.log(`sua`,res.data)
+      setParcelsfrom(res.data);
+      console.log(`sua`, res.data)
 
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
+    getParcelsfrom();
+  }, []);
+
+  const getParcelsto = async () => {
+    try {
+
+      const res = await api.get("/api/parceltoData");
+
+      setParcelsto(res.data);
+      console.log(`sua`, res.data)
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getParcelsto();
+  }, []);
 
   return (
     <div>
@@ -157,61 +179,258 @@ const Ownerdashboard = () => {
 
 
           {/* PARCEL ORDERS */}
-          <div className="bg-white p-6 rounded-xl shadow">
+          <div className="bg-white p-6 rounded-xl shadow-lg">
 
-            <h2 className="text-xl font-bold mb-4">Parcel Orders</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+              Parcel Orders
+            </h2>
 
-            <div className="space-y-4">
-
-              {parcels.map((parcel) => (
-
-            <div
-              key={parcel._id}
-              className="border rounded-lg p-4 flex justify-between items-center hover:shadow"
-            >
-
-              <div>
-
-                <p className="font-semibold">
-                  {parcel.fromCity} → {parcel.toCity}
-                </p>
-
-                <p className="text-sm text-gray-500">
-                  Pickup: {parcel.pickupName}
-                </p>
-
-                <p className="text-sm text-gray-500">
-                  Receiver: {parcel.receiverName}
-                </p>
-
-              </div>
-
-
-              <div className="text-right">
-
-                <p className="font-bold text-lg">
-                  ₹{parcel.price}
-                </p>
-
-                <p
-                  className={`text-sm font-semibold ${
-                    parcel.status === "pending"
-                      ? "text-yellow-600"
-                      : parcel.status === "pickedup"
-                      ? "text-blue-600"
-                      : "text-green-600"
+            {/* Tabs */}
+            <div className="flex gap-4 mb-6">
+              <button
+                onClick={() => setStep(1)}
+                className={`px-4 py-2 rounded-lg font-semibold transition ${step === 1
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 hover:bg-gray-200"
                   }`}
-                >
-                  {parcel.status}
-                </p>
+              >
+                From Orders
+              </button>
 
+              <button
+                onClick={() => setStep(2)}
+                className={`px-4 py-2 rounded-lg font-semibold transition ${step === 2
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 hover:bg-gray-200"
+                  }`}
+              >
+                To Orders
+              </button>
+            </div>
+
+            {/* FROM CITY */}
+            {step === 1 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-700">
+                  From City Orders
+                </h3>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {parcelsfrom.map((parcel) => (
+                    <div
+                      key={parcel._id}
+                      className="bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg transition"
+                    >
+                      <p className="text-lg font-semibold text-center text-gray-800 mb-3">
+                        {parcel.fromCity} → {parcel.toCity}
+                      </p>
+
+                      <div className="space-y-3 text-sm text-gray-600">
+
+                        <div>
+                          <p className="font-semibold text-gray-700">
+                            Pickup
+                          </p>
+                          <p>{parcel.pickupName}</p>
+                          <p>{parcel.pickupPhone}</p>
+                          <p>{parcel.pickupAddress}</p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.pickupLat},${parcel.pickupLng}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 Pickup Map
+                          </a>
+                        </div>
+
+                        <div>
+                          <p className="font-semibold text-gray-700">
+                            {parcel.fromCity} Bus Stand
+                          </p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.fromlat},${parcel.fromlon}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 View
+                          </a>
+                        </div>
+<div>
+                          <p className="font-semibold text-gray-700">
+                            {parcel.toCity} Bus Stand
+                          </p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.tolat},${parcel.tolon}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 View
+                          </a>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-700">
+                            Receiver
+                          </p>
+                          <p>{parcel.receiverName}</p>
+                          <p>{parcel.receiverPhone}</p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.receiverLat},${parcel.receiverLng}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 Receiver Map
+                          </a>
+                        </div>
+
+                        
+
+                      </div>
+
+                      {/* Price + Status */}
+                      <div className="flex justify-between items-center mt-4">
+
+                        <p className="text-lg font-bold text-green-600">
+                          ₹{parcel.price}
+                        </p>
+
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold ${parcel.status === "pending"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : parcel.status === "pickedup"
+                                ? "bg-blue-100 text-blue-700"
+                                : "bg-green-100 text-green-700"
+                            }`}
+                        >
+                          {parcel.status}
+                        </span>
+
+                      </div>
+
+                    </div>
+                  ))}
+                </div>
               </div>
+            )}
 
-            </div>
+            {/* TO CITY */}
+            {step === 2 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-700">
+                  To City Orders
+                </h3>
 
-          ))}
+               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {parcelsto.map((parcel) => (
+                    <div
+                      key={parcel._id}
+                      className="bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg transition"
+                    >
+                      <p className="text-lg font-semibold text-center text-gray-800 mb-3">
+                        {parcel.fromCity} → {parcel.toCity}
+                      </p>
 
-            </div>
+                      <div className="space-y-3 text-sm text-gray-600">
+
+                        <div>
+                          <p className="font-semibold text-gray-700">
+                            Pickup
+                          </p>
+                          <p>{parcel.pickupName}</p>
+                          <p>{parcel.pickupPhone}</p>
+                          <p>{parcel.pickupAddress}</p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.pickupLat},${parcel.pickupLng}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 Pickup Map
+                          </a>
+                        </div>
+
+                        <div>
+                          <p className="font-semibold text-gray-700">
+                            {parcel.fromCity} Bus Stand
+                          </p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.fromlat},${parcel.fromlon}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 View
+                          </a>
+                        </div>
+
+                        <div>
+                          <p className="font-semibold text-gray-700">
+                            {parcel.toCity} Bus Stand
+                          </p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.tolat},${parcel.tolon}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 View
+                          </a>
+                        </div>
+
+                        <div>
+                          <p className="font-semibold text-gray-700">
+                            Receiver
+                          </p>
+                          <p>{parcel.receiverName}</p>
+                          <p>{parcel.receiverPhone}</p>
+
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${parcel.receiverLat},${parcel.receiverLng}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            📍 Receiver Map
+                          </a>
+                        </div>
+
+                      </div>
+
+                      {/* Price + Status */}
+                      <div className="flex justify-between items-center mt-4">
+
+                        <p className="text-lg font-bold text-green-600">
+                          ₹{parcel.price}
+                        </p>
+
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold ${parcel.status === "pending"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : parcel.status === "pickedup"
+                                ? "bg-blue-100 text-blue-700"
+                                : "bg-green-100 text-green-700"
+                            }`}
+                        >
+                          {parcel.status}
+                        </span>
+
+                      </div>
+
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </div>
 
