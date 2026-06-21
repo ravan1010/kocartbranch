@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/register' element={<Branchlog />} />
-          <Route path='/verify' element={<Branchverify />} />
+          <Route path='/branch-auth-success' element={<Branchverify />} />
 
           <Route element={<ProtectedADMIN />}>
             <Route path='/location' element={<Location />} />

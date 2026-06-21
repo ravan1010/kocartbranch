@@ -20,7 +20,7 @@ const Ownerdashboard = () => {
   useEffect(() => {
     const fetchOTP = async () => {
       try {
-        const res = await api.get('/api/owner/otpTObranch')
+        const res = await api.get('/api/owner/marchentActivate')
         console.log(res.data)
         setotp(res.data)
       } catch (error) {

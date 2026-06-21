@@ -17,8 +17,8 @@ const useAdminAuth = () => {
 
         if (isMounted) {
           setUser(res.data?.owner || null);
-        }
-      } catch (error) {
+        } 
+      } catch {
         if (isMounted) {
           setUser(null);
         }

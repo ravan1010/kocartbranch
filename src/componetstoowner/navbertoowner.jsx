@@ -21,7 +21,7 @@ const OwnerNavbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <NavLink to="/branch" className={navLinkClasses}>Dashboard</NavLink>
+            <NavLink to="/" className={navLinkClasses}>Dashboard</NavLink>
             <NavLink to="/postaddandremove" className={navLinkClasses}>Post</NavLink>
             <NavLink to="/allorder" className={navLinkClasses}>OrderStatus</NavLink>
 

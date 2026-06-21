@@ -9,5 +9,5 @@ const ProtectedADMIN = () => {
   return isAdmin ? <Outlet /> : <Navigate to="/register" replace />;
 };
 
-export default ProtectedADMIN; 
+export default ProtectedADMIN;  
  
