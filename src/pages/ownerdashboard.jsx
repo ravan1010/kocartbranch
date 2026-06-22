@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import Navbar from '../componetstoowner/navbertoowner'
 import api from '../api';
 import { DoorClosedLocked, DoorOpen } from 'lucide-react';
+import { generateAndSaveFCMToken } from '../utili/token';
+
 
 const Ownerdashboard = () => {
 
@@ -43,6 +45,7 @@ const Ownerdashboard = () => {
   useEffect(() => {
     const loadData = async () => {
       await fetchDashboard()
+      await generateAndSaveFCMToken();
     }
 
     loadData()
