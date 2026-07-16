@@ -55,6 +55,7 @@ export const Allorder = () => {
                   {/* Order header */}
                   <div className="flex justify-between border-b pb-2 mb-3">
                     <p className="font-bold text-lg">Order #{order._id}</p>
+                    <p className="font-bold text-lg">Order ID #{order.orderId || `kocart`}</p>
                     <p className="text-gray-600">Total: ₹{order.totalAmount}</p>
                   </div>
 
