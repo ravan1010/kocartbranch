@@ -34,34 +34,34 @@ export const Pendingorder = () => {
     orderSchema();
   }, []);
 
-      const process = async(id) => {
+    //   const process = async(id) => {
 
-        try {
-            await api.post(`/api/owner/orderProcess`,{id},
-                 {withCredentials: true})
-                 .then((res) => {
-                  alert(res.data.message)
-                    orderSchema(); // Refresh orders after processing
-                 })
-                 .catch((err) => console.log(err))
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    //  const cancel = async(id) => {
     //     try {
-    //         await api.post(`/api/owner/ordercancel`,{id},
+    //         await api.post(`/api/owner/orderProcess`,{id},
     //              {withCredentials: true})
     //              .then((res) => {
     //               alert(res.data.message)
-    //               window.location.reload();
+    //                 orderSchema(); // Refresh orders after processing
     //              })
     //              .catch((err) => console.log(err))
     //     } catch (error) {
     //         console.error(error)
     //     }
     // }
+
+     const cancel = async(id) => {
+        try {
+            await api.post(`/api/owner/ordercancel`,{id},
+                 {withCredentials: true})
+                 .then((res) => {
+                  alert(res.data.message)
+                  window.location.reload();
+                 })
+                 .catch((err) => console.log(err))
+        } catch (error) {
+            console.error(error)
+        }
+    }
   return (
     <>
     <OwnerNavbar />
@@ -130,7 +130,7 @@ export const Pendingorder = () => {
                     <div className="mb-3 border-2  p-3">
                         <h3 className="font-semibold text-black mb-1 bold">User Details</h3>
                         <p className="text-sm font-bold text-gray-600">
-                            name : {order.userId.number} <br />
+                            name : {order.userId.name} <br />
                             number : {order.number} <br />
                             <p>location :  <a href={`https://www.google.com/maps/dir/?api=1&destination=${order.userId.location.coordinates[1]},${order.userId.location.coordinates[0]}`} target="_blank" rel="noopener noreferrer">View on Map</a></p>
                         </p>

@@ -139,12 +139,12 @@ export const Allorder = () => {
                         {order.shop?.map((shop, index) => (
                           <div key={index} className="mb-4">
 
-                            <p>
-                              <b>Shop:</b> {shop.admin.companyName}
+                             <p>
+                              <b>Shop:</b> {shop.admin.companyName || `kocart`}
                             </p>
 
                             <p>
-                              <b>Phone:</b> {shop.admin.number}
+                              <b>Phone:</b> {shop.admin.number || `kocart`}
                             </p>
 
                             <a
