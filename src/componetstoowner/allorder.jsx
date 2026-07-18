@@ -114,6 +114,9 @@ export const Allorder = () => {
                         <span className="bg-white text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
                           {order.status}
                         </span>
+                         <span className="bg-white text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
+                          {order.deliveryBoy?.name}
+                        </span>
                       </div>
                     </div>
 
