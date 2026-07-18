@@ -7,6 +7,8 @@ export const Allorder = () => {
   const [order, setorder] = useState([]); // ✅ array not string
   const [loading, setLoading] = useState(false);
 
+
+
   const orderSchema = async () => {
     try {
       setLoading(true);
@@ -35,6 +37,35 @@ export const Allorder = () => {
   useEffect(() => {
     orderSchema();
   }, []);
+
+  const formatDate = (date) => {
+  return new Date(date).toLocaleString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
+const groupedOrders = [...order]
+  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+  .reduce((groups, item) => {
+    const date = new Date(item.createdAt).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+
+    groups[date].push(item);
+    return groups;
+  }, {});
+
   return (
     <>
       <OwnerNavbar />
