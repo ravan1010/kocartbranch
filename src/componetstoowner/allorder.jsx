@@ -39,32 +39,32 @@ export const Allorder = () => {
   }, []);
 
   const formatDate = (date) => {
-  return new Date(date).toLocaleString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
-};
-
-const groupedOrders = [...order]
-  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-  .reduce((groups, item) => {
-    const date = new Date(item.createdAt).toLocaleDateString("en-IN", {
+    return new Date(date).toLocaleString("en-IN", {
       day: "2-digit",
-      month: "long",
+      month: "short",
       year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     });
+  };
 
-    if (!groups[date]) {
-      groups[date] = [];
-    }
+  const groupedOrders = [...order]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .reduce((groups, item) => {
+      const date = new Date(item.createdAt).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      });
 
-    groups[date].push(item);
-    return groups;
-  }, {});
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+
+      groups[date].push(item);
+      return groups;
+    }, {});
 
   return (
     <>
@@ -72,160 +72,167 @@ const groupedOrders = [...order]
       <OrderNavbar />
       <div className="mb-2 md:mb-3 lg:mb-3 w-[95%] mx-auto">
         {loading && (
-  <p className="text-2xl font-bold text-center py-10">Loading...</p>
-)}
+          <p className="text-2xl font-bold text-center py-10">Loading...</p>
+        )}
 
-{!loading && order.length === 0 ? (
-  <p className="text-xl font-semibold text-center py-10">
-    No Orders Found
-  </p>
-) : (
-  Object.entries(groupedOrders).map(([date, orders]) => (
-    <div key={date} className="mb-8">
+        {!loading && order.length === 0 ? (
+          <p className="text-xl font-semibold text-center py-10">
+            No Orders Found
+          </p>
+        ) : (
+          Object.entries(groupedOrders).map(([date, orders]) => (
+            <div key={date} className="mb-8">
 
-      {/* Date Heading */}
-      <div className="sticky top-0 bg-gray-100 py-3 px-4 rounded-lg mb-4 shadow">
-        <h2 className="text-2xl font-bold text-blue-700">
-          📅 {date}
-        </h2>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-        {orders.map((order) => (
-          <div
-            key={order._id}
-            className="bg-white rounded-2xl shadow-lg border hover:shadow-xl transition-all duration-300 overflow-hidden"
-          >
-
-            {/* Header */}
-            <div className="bg-blue-600 text-white p-4">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h3 className="font-bold text-lg">
-                    {order.orderId || "KOCART"}
-                  </h3>
-
-                  <p className="text-sm opacity-90">
-                    {formatDate(order.createdAt)}
-                  </p>
-                </div>
-
-                <span className="bg-white text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
-                  {order.status}
-                </span>
-              </div>
-            </div>
-
-            {/* Body */}
-            <div className="p-4">
-
-              <div className="flex justify-between mb-3">
-                <p className="font-semibold">
-                  Total
-                </p>
-
-                <p className="text-xl font-bold text-green-600">
-                  ₹{order.totalAmount}
-                </p>
+              {/* Date Heading */}
+              <div className="sticky top-0 bg-gray-100 py-3 px-4 rounded-lg mb-4 shadow">
+                <h2 className="text-2xl font-bold text-blue-700">
+                  📅 {date}
+                </h2>
               </div>
 
-              {/* Merchant */}
-              <div className="border rounded-lg p-3 mb-4 bg-gray-50">
-                <h3 className="font-bold text-blue-700 mb-2">
-                  Merchant
-                </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-                {order.shop.map((shop, index) => (
-                  <div key={index} className="mb-4">
+                {orders.map((order) => (
+                  <div
+                    key={order._id}
+                    className="bg-white rounded-2xl shadow-lg border hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  >
 
-                    <p>
-                      <b>Shop:</b> {shop.admin.companyName}
-                    </p>
+                    {/* Header */}
+                    <div className="bg-blue-600 text-white p-4">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h3 className="font-bold text-lg">
+                            {order.orderId || "KOCART"}
+                          </h3>
 
-                    <p>
-                      <b>Phone:</b> {shop.admin.number}
-                    </p>
-
-                    <a
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${shop.admin.location.coordinates[1]},${shop.admin.location.coordinates[0]}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-blue-600 underline"
-                    >
-                      View Location
-                    </a>
-
-                    <div className="grid grid-cols-2 gap-3 mt-3">
-
-                      {shop.items.map((item) => (
-                        <div
-                          key={item._id}
-                          className="border rounded-lg p-2 text-center"
-                        >
-
-                          <img
-                            src={item.productId?.image?.[0]}
-                            className="w-24 h-24 object-cover rounded mx-auto"
-                          />
-
-                          <p className="font-semibold mt-2">
-                            {item.productId?.name}
+                          <p className="text-sm opacity-90">
+                            {formatDate(order.createdAt)}
                           </p>
-
-                          <p>Qty : {item.quantity}</p>
-
-                          <p className="text-green-600 font-bold">
-                            ₹{item.price}
-                          </p>
-
                         </div>
-                      ))}
 
+                        <span className="bg-white text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
+                          {order.status}
+                        </span>
+                      </div>
                     </div>
 
-                    <p className="mt-3 font-bold text-right">
-                      Shop Total : ₹{shop.subtotal}
-                    </p>
+                    {/* Body */}
+                    <div className="p-4">
+
+                      <div className="flex justify-between mb-3">
+                        <p className="font-semibold">
+                          Total
+                        </p>
+
+                        <p className="text-xl font-bold text-green-600">
+                          ₹{order.totalAmount}
+                        </p>
+                      </div>
+
+                      {/* Merchant */}
+                      <div className="border rounded-lg p-3 mb-4 bg-gray-50">
+                        <h3 className="font-bold text-blue-700 mb-2">
+                          Merchant
+                        </h3>
+
+                        {order.shop?.map((shop, index) => (
+                          <div key={index} className="mb-4">
+
+                            <p>
+                              <b>Shop:</b> {shop.admin.companyName}
+                            </p>
+
+                            <p>
+                              <b>Phone:</b> {shop.admin.number}
+                            </p>
+
+                            <a
+                              href={
+                                shop.admin?.location?.coordinates
+                                  ? `https://www.google.com/maps/dir/?api=1&destination=${shop.admin.location.coordinates[1]},${shop.admin.location.coordinates[0]}`
+                                  : "#"
+                              } 
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-blue-600 underline"
+                            >
+                              View Location
+                            </a>
+
+                            <div className="grid grid-cols-2 gap-3 mt-3">
+
+                              {shop.items?.map((item) => (
+                                <div
+                                  key={item._id}
+                                  className="border rounded-lg p-2 text-center"
+                                >
+
+                                  <img
+                                    src={item.productId?.image?.[0]}
+                                    className="w-24 h-24 object-cover rounded mx-auto"
+                                  />
+
+                                  <p className="font-semibold mt-2">
+                                    {item.productId?.name}
+                                  </p>
+
+                                  <p>Qty : {item.quantity}</p>
+
+                                  <p className="text-green-600 font-bold">
+                                    ₹{item.price}
+                                  </p>
+
+                                </div>
+                              ))}
+
+                            </div>
+
+                            <p className="mt-3 font-bold text-right">
+                              Shop Total : ₹{shop.subtotal}
+                            </p>
+
+                          </div>
+                        ))}
+
+                      </div>
+
+                      {/* Customer */}
+                      {order.userId && (
+                        <div className="border rounded-lg p-3 bg-gray-50">
+
+                          <h3 className="font-bold text-green-700 mb-2">
+                            Customer
+                          </h3>
+
+                          <p>
+                            <b>Phone:</b> {order.number}
+                          </p>
+
+                          <a
+                            href={
+                              order.userId?.location?.coordinates
+                                ? `https://www.google.com/maps/dir/?api=1&destination=${order.userId.location.coordinates[1]},${order.userId.location.coordinates[0]}`
+                                : "#"
+                            } target="_blank"
+                            rel="noreferrer"
+                            className="text-blue-600 underline"
+                          >
+                            View Customer Location
+                          </a>
+
+                        </div>
+                      )}
+
+                    </div>
 
                   </div>
                 ))}
 
               </div>
-
-              {/* Customer */}
-              {order.userId && (
-                <div className="border rounded-lg p-3 bg-gray-50">
-
-                  <h3 className="font-bold text-green-700 mb-2">
-                    Customer
-                  </h3>
-
-                  <p>
-                    <b>Phone:</b> {order.number}
-                  </p>
-
-                  <a
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${order.userId.location.coordinates[1]},${order.userId.location.coordinates[0]}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-blue-600 underline"
-                  >
-                    View Customer Location
-                  </a>
-
-                </div>
-              )}
-
             </div>
-
-          </div>
-        ))}
-
-      </div>
-    </div>
-  ))
-)}
+          ))
+        )}
       </div>
     </>
   )
