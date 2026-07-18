@@ -13,24 +13,29 @@ const Ownerdashboard = () => {
   const [parcelsfrom, setParcelsfrom] = useState([]);
   const [parcelsto, setParcelsto] = useState([]);
   const [step, setStep] = useState(1);
-
-
+  const [marchent, setmarchent] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  
 
   // const [error, setError] = useState('');
   // const [success, setsuccess] = useState('');
+const fetchmarchent = async () => {
+      try {
+        const res = await api.get("/api/marchent/data");
+        setmarchent(res.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
   useEffect(() => {
-    const fetchOTP = async () => {
-      try {
-        const res = await api.get('/api/owner/marchentActivate')
-        console.log(res.data)
-        setotp(res.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
+     // 🔽 Fetch inactive vendors
+    
 
-    fetchOTP()
+    fetchmarchent()
   }, [])
 
   const fetchDashboard = async () => {
@@ -108,6 +113,22 @@ const Ownerdashboard = () => {
     getParcelsto();
   }, []);
 
+  // 🔽 Activate vendor
+    const activateVendor = async (id) => {
+      try {
+        await api.post(`/api/marchent/active/${id}`);
+  
+        // remove activated vendor from UI
+        setmarchent((prev) => prev.filter((v) => v._id !== id));
+        fetchmarchent();
+  
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  
+    if (loading) return <p>Loading...</p>;
+
   return (
     <div>
       <>
@@ -151,6 +172,33 @@ const Ownerdashboard = () => {
             />
 
           </div>
+
+          <h2 className="text-2xl font-bold mb-4">Pending Vendors</h2>
+
+      {marchent.length === 0 ? (
+        <p>No vendors pending</p>
+      ) : (
+        <div className="grid gap-4">
+          {marchent.map((vendor) => (
+            <div
+              key={vendor._id}
+              className="p-4 border rounded-xl flex justify-between items-center shadow"
+            >
+              <div>
+                <h3 className="font-semibold">{vendor.name}</h3>
+                <p className="text-sm text-gray-500">{vendor.email}</p>
+              </div>
+
+              <button
+                onClick={() => activateVendor(vendor._id)}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              >
+                Activate
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
 
 
           {/* OTP SECTION */}
