@@ -3,14 +3,14 @@ import OrderNavbar from './ordernavber'
 import OwnerNavbar from './navbertoowner';
 import api from '../api';
 
-export const Cancelledorder = () => {
+export const Acceptedorder = () => {
   const [order, setorder] = useState([]); // ✅ array not string
   const [loading, setLoading] = useState(false);
 
   const orderSchema = async () => {
     try {
       setLoading(true);
-      const res = await api.get(`/api/owner/orders?status=cancelled`, { withCredentials: true });
+      const res = await api.get(`/api/owner/orders?status=accepted`, { withCredentials: true });
 
       // console.log("API response:", res.data);
 
@@ -33,6 +33,23 @@ export const Cancelledorder = () => {
   useEffect(() => {
     orderSchema();
   }, []);
+
+  const cancel = async (id) => {
+    try {
+      const res = await api.post(
+        "/api/owner/ordercancel",
+        { id },
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        alert(res.data.message);
+        orderSchema(); // Refresh pending orders
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const formatDate = (date) => {
     return new Date(date).toLocaleString("en-IN", {
@@ -225,6 +242,19 @@ export const Cancelledorder = () => {
 
                     </div>
 
+                    {/* Bottom Buttons */}
+                    <div className="mt-4 flex gap-3">
+                      <button
+                        onClick={() => {
+                          if (window.confirm("Are you sure you want to cancel this order?")) {
+                            cancel(order._id);
+                          }
+                        }}
+                        className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-semibold transition"
+                      >
+                        Cancel Order
+                      </button>
+                    </div>
                   </div>
                 ))}
 

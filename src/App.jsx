@@ -7,8 +7,11 @@ import ProtectedADMIN from './auth/authroute';
 import Ownerdashboard from './pages/ownerdashboard';
 import { Allorder } from './componetstoowner/allorder';
 import { Pendingorder } from './componetstoowner/orderpending';
-import { Tocomplete } from './componetstoowner/tocomplete';
-import { OrderComplete } from './componetstoowner/ordercomplete';
+import { Deliveredorder, OrderComplete } from './componetstoowner/ordercomplete';
+import { Acceptedorder } from './componetstoowner/accept';
+import { Assignedorder } from './componetstoowner/assign';
+import { Pickuporder } from './componetstoowner/pickup';
+import { Cancelledorder } from './componetstoowner/ordercancel';
 
 
 function App() {
@@ -25,8 +28,11 @@ function App() {
               <Route path='/' element={<Ownerdashboard />} />
               <Route path='/allorder' element={<Allorder />} />
               <Route path='/pending' element={<Pendingorder />} />
-              <Route path='/process' element={<Tocomplete />} />
-              <Route path='/complete' element={<OrderComplete />} /> --- IGNORE ---
+              <Route path='/accept' element={<Acceptedorder />} />
+              <Route path='/assign' element={<Assignedorder />} /> --- IGNORE ---
+              <Route path='/pickup' element={<Pickuporder />} />
+              <Route path='/delivered' element={<Deliveredorder />} />
+              <Route path='/cancelled' element={<Cancelledorder />} /> --- IGNORE ---
 
           </Route>
         </Routes>
