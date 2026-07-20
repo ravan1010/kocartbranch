@@ -33,7 +33,6 @@ function App() {
               <Route path='/pickup' element={<Pickuporder />} />
               <Route path='/delivered' element={<Deliveredorder />} />
               <Route path='/cancelled' element={<Cancelledorder />} /> --- IGNORE ---
-
           </Route>
         </Routes>
       </Router>
