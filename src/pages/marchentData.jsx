@@ -73,7 +73,7 @@ const MerchantList = () => {
                             onClick={() => navigate(`/payment/${merchant._id}`)}
                             className="px-4 py-1 text-sm rounded-full border border-blue-500 text-blue-600 hover:bg-blue-50"
                         >
-                            Edit
+                            payment
                         </button>
 
                     </div>
