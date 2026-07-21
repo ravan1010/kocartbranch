@@ -13,6 +13,7 @@ import { Assignedorder } from './componetstoowner/assign';
 import { Pickuporder } from './componetstoowner/pickup';
 import { Cancelledorder } from './componetstoowner/ordercancel';
 import MerchantList from './pages/marchentData';
+import Posts from './pages/posts';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path='/location' element={<Location />} />
               <Route path='/' element={<Ownerdashboard />} />
               <Route path='/marchent/data' element={<MerchantList />} />
+              <Route path='/posts' element={<Posts /> } />
               <Route path='/allorder' element={<Allorder />} />
               <Route path='/pending' element={<Pendingorder />} />
               <Route path='/accept' element={<Acceptedorder />} />
