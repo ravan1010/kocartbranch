@@ -115,7 +115,7 @@ const Posts = () => {
                                     key={item._id}
                                     className="border p-3 m-2 flex w-full rounded-lg items-center"
                                 >
-                                    
+
                                     {/* Image */}
                                     <div className="h-16 w-16 mr-4">
                                         <img
@@ -164,59 +164,61 @@ const Posts = () => {
                     </div>
 
 
-                    <div className="w-full mt-2 flex flex-col p-4 lg:hidden md:hidden ">
+                    <div className="w-full mt-2 flex flex-col p-4 lg:hidden md:hidden">
                         {Array.isArray(filteredPosts) &&
                             filteredPosts.map((item) => (
                                 <div
                                     key={item._id}
-                                    className="w-full border rounded-xl p-3 mb-3 shadow-sm bg-white"
+                                    className="w-full border rounded-xl p-4 mb-4 shadow-sm bg-white"
                                 >
-                                    {/* Top Section */}
+                                    {/* Product */}
                                     <div className="flex gap-3">
                                         {/* Image */}
-                                        <div className="w-[30%]">
+                                        <div className="w-24 h-24 flex-shrink-0">
                                             <img
                                                 src={item.image?.[0]}
                                                 alt={item.name}
-                                                className="w-full h-20 object-cover rounded-lg"
+                                                className="w-full h-full object-cover rounded-lg"
                                             />
                                         </div>
 
-                                        {/* Info */}
-                                        <div className="w-[70%]">
-                                            <p className="font-semibold text-sm">{item.name}</p>
-                                            <p className="text-xs text-gray-500">{item.variantname}</p>
+                                        {/* Details */}
+                                        <div className="flex-1">
+                                            <p className="font-semibold text-base">{item.name}</p>
+                                            <p className="text-xs text-gray-500 mb-2">
+                                                {item.variantname}
+                                            </p>
 
-                                            <ul className="mt-1 space-y-1">
-                                                {item.variants.map((variant) => (
-                                                    <li
-                                                        key={variant._id}
-                                                        className="flex justify-between text-xs"
-                                                    >
-                                                        <span>{variant.name}</span>
-                                                        <span className="font-medium">₹{variant.price}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                            {item.variants.map((variant) => (
+                                                <div
+                                                    key={variant._id}
+                                                    className="flex justify-between text-sm"
+                                                >
+                                                    <span>{variant.name}</span>
+                                                    <span className="font-semibold">
+                                                        ₹{variant.price}
+                                                    </span>
+                                                </div>
+                                            ))}
                                         </div>
-
-                                        <div className="flex items-center gap-3 ml-6">
-                                        <input
-                                            type="text"
-                                            placeholder="Enter Merchant ID"
-                                            value={newMerchantId}
-                                            onChange={(e) => setnewMerchantId(e.target.value)}
-                                            className="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                        />
-
-                                        <button
-                                            onClick={() => copyProduct(item._id)}
-                                            className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition duration-200 shadow-md"
-                                        >
-                                            Copy Product
-                                        </button>
                                     </div>
-                                    </div>
+
+                                    {/* Merchant ID Input */}
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Merchant ID"
+                                        value={newMerchantId}
+                                        onChange={(e) => setnewMerchantId(e.target.value)}
+                                        className="w-full mt-4 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    />
+
+                                    {/* Copy Button */}
+                                    <button
+                                        onClick={() => copyProduct(item._id)}
+                                        className="w-full mt-3 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+                                    >
+                                        Copy Product
+                                    </button>
                                 </div>
                             ))}
                     </div>
