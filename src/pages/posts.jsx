@@ -8,7 +8,7 @@ const Posts = () => {
     const [post, setpost] = useState([]);
     const [filteredPosts, setFilteredPosts] = useState([]);
 
-    const [newMerchantId, setnewMerchantId] = useState(null);
+    const [newMerchantId, setnewMerchantId] = useState();
 
     const [selectedVariant, setSelectedVariant] = useState("all");
 
