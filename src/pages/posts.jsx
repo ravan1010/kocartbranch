@@ -115,6 +115,22 @@ const Posts = () => {
                                     key={item._id}
                                     className="border p-3 m-2 flex w-full rounded-lg items-center"
                                 >
+                                    <div className="flex items-center gap-3 ml-6">
+                                        <input
+                                            type="text"
+                                            placeholder="Enter Merchant ID"
+                                            value={newMerchantId}
+                                            onChange={(e) => setnewMerchantId(e.target.value)}
+                                            className="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                                        />
+
+                                        <button
+                                            onClick={() => copyProduct(item._id)}
+                                            className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition duration-200 shadow-md"
+                                        >
+                                            Copy Product
+                                        </button>
+                                    </div>
                                     {/* Image */}
                                     <div className="h-16 w-16 mr-4">
                                         <img
@@ -141,22 +157,7 @@ const Posts = () => {
 
                                         <p className="font-bold">{item.Eventcategory}</p>
                                     </div>
-                                    <div className="flex items-center gap-3 ml-6">
-                                        <input
-                                            type="text"
-                                            placeholder="Enter Merchant ID"
-                                            value={newMerchantId}
-                                            onChange={(e) => setnewMerchantId(e.target.value)}
-                                            className="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                        />
-
-                                        <button
-                                            onClick={() => copyProduct(item._id)}
-                                            className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition duration-200 shadow-md"
-                                        >
-                                            Copy Product
-                                        </button>
-                                    </div>
+                                    
                                 </div>
 
                             ))}
