@@ -7,15 +7,16 @@ import ProtectedADMIN from './auth/authroute';
 import Ownerdashboard from './pages/ownerdashboard';
 import { Allorder } from './componetstoowner/allorder';
 import { Pendingorder } from './componetstoowner/orderpending';
-import { Deliveredorder, OrderComplete } from './componetstoowner/ordercomplete';
+import { Deliveredorder } from './componetstoowner/ordercomplete';
 import { Acceptedorder } from './componetstoowner/accept';
 import { Assignedorder } from './componetstoowner/assign';
 import { Pickuporder } from './componetstoowner/pickup';
 import { Cancelledorder } from './componetstoowner/ordercancel';
+import MerchantList from './pages/marchentData';
 
 
 function App() {
-
+ 
   return (
     <>
       <Router>
@@ -26,6 +27,7 @@ function App() {
           <Route element={<ProtectedADMIN />}>
             <Route path='/location' element={<Location />} />
               <Route path='/' element={<Ownerdashboard />} />
+              <Route path='/marchent/data' element={<MerchantList />} />
               <Route path='/allorder' element={<Allorder />} />
               <Route path='/pending' element={<Pendingorder />} />
               <Route path='/accept' element={<Acceptedorder />} />

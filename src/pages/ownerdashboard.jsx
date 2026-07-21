@@ -173,7 +173,7 @@ const fetchmarchent = async () => {
 
           </div>
 
-          <h2 className="text-2xl font-bold mb-4">Pending Vendors</h2>
+          <h2 className="text-2xl font-bold mb-4">Pending Marchent</h2>
 
       {marchent.length === 0 ? (
         <p>No vendors pending</p>
