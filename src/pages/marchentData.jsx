@@ -173,7 +173,7 @@ const MerchantList = () => {
 
                             {/* Button */}
                             <button
-                                onClick={() => navigate(`/payment/${merchant._id}`)}
+                                onClick={() => navigate(`/paymentsettlement?merchantId=${merchant._id}`)}
                                 className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
                             >
                                 Payment

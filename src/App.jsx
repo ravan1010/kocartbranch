@@ -14,6 +14,7 @@ import { Pickuporder } from './componetstoowner/pickup';
 import { Cancelledorder } from './componetstoowner/ordercancel';
 import MerchantList from './pages/marchentData';
 import Posts from './pages/posts';
+import MerchantSettlement from './pages/paymentsetttlement';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path='/' element={<Ownerdashboard />} />
               <Route path='/marchent/data' element={<MerchantList />} />
               <Route path='/posts' element={<Posts /> } />
+              <Route path="/paymentsettlement" element={<MerchantSettlement />}/>
               <Route path='/allorder' element={<Allorder />} />
               <Route path='/pending' element={<Pendingorder />} />
               <Route path='/accept' element={<Acceptedorder />} />
