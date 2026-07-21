@@ -30,7 +30,7 @@ function App() {
             <Route path='/location' element={<Location />} />
               <Route path='/' element={<Ownerdashboard />} />
               <Route path='/marchent/data' element={<MerchantList />} />
-              <Route path='/posts' element={<Posts /> } />
+              <Route path='/posts/data' element={<Posts /> } />
               <Route path="/paymentsettlement" element={<MerchantSettlement />}/>
               <Route path='/allorder' element={<Allorder />} />
               <Route path='/pending' element={<Pendingorder />} />

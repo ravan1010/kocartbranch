@@ -9,7 +9,6 @@ const Posts = () => {
     const [filteredPosts, setFilteredPosts] = useState([]);
 
     const [newMerchantId, setnewMerchantId] = useState(null);
-    const [loading, setloading] = useState(true)
 
     const [selectedVariant, setSelectedVariant] = useState("all");
 
@@ -18,15 +17,12 @@ const Posts = () => {
 
         const fetchImages = async () => {
 
-            setloading(false)
-
             const res = await api.get("/api/owner/posts", {
                 withCredentials: true,
             });
 
             setpost(res.data.post);
             setFilteredPosts(res.data.post); // ✅ Initialize filtered list
-            setloading(true)
         };
         fetchImages()
     }, [])
@@ -76,22 +72,6 @@ const Posts = () => {
             post.map((post) => post.variantname) || []
         ),
     ];
-
-    if (loading) {
-        return (
-            <div className="fixed inset-0 flex items-center justify-center z-50">
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black opacity-50"></div>
-
-                {/* Loader */}
-                <div className="z-10 flex flex-col items-center">
-                    <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-white mt-3">Loading...</p>
-                </div>
-            </div>
-        )
-    }
 
     return (
         <>
