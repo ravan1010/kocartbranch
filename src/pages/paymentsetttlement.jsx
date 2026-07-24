@@ -10,6 +10,7 @@ const MerchantSettlement = () => {
     amount: "",
     platformCommission: "",
     settlementAmount: "",
+    marchentAmount: "",
   });
 
   useEffect(() => {
@@ -50,6 +51,7 @@ const MerchantSettlement = () => {
           amount: "",
           platformCommission: "",
           settlementAmount: "",
+          marchentAmount: "",
         }));
       }
     } catch (error) {
@@ -88,6 +90,16 @@ const MerchantSettlement = () => {
           name="platformCommission"
           placeholder="Platform Commission"
           value={form.platformCommission}
+          onChange={handleChange}
+          className="w-full border rounded-lg px-4 py-2"
+          required
+        />
+
+        <input
+          type="number"
+          name="marchentAmount"
+          placeholder="marchentAmount"
+          value={form.marchentAmount}
           onChange={handleChange}
           className="w-full border rounded-lg px-4 py-2"
           required
