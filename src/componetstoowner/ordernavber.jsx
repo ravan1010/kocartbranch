@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 const OrderNavbar = () => {
   const navItems = [
-    { name: "Orders", path: "/Allorder" },
     { name: "Pending", path: "/pending" },
     { name: "Accepted", path: "/accept" },
     { name: "Assigned", path: "/assign" },
