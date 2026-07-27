@@ -8,7 +8,7 @@ import { generateAndSaveFCMToken } from '../utili/token';
 const Ownerdashboard = () => {
 
 
-  const [delivery, setdelivery] = useState();
+  const [delivery, setdelivery] = useState([]);
   const [open, setopen] = useState()
   const [marchent, setmarchent] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -95,7 +95,7 @@ const fetchmarchentanddeliveryboy = async () => {
         await api.post(`/api/delivery/active/${id}`);
   
         // remove activated vendor from UI
-        setmarchent((prev) => prev.filter((v) => v._id !== id));
+        setdelivery((prev) => prev.filter((v) => v._id !== id));
         fetchmarchentanddeliveryboy();
   
       } catch (err) {
@@ -172,22 +172,22 @@ const fetchmarchentanddeliveryboy = async () => {
 
       <h2 className="text-2xl font-bold mb-4">Pending Delivery partner</h2>
 
-      {marchent.length === 0 ? (
+      {delivery.length === 0 ? (
         <p>No Delivery partner pending</p>
       ) : (
         <div className="grid gap-4">
-          {delivery.map((vendor) => (
+          {delivery.map((boy) => (
             <div
-              key={vendor._id}
+              key={boy._id}
               className="p-4 border rounded-xl flex justify-between items-center shadow"
             >
               <div>
-                <h3 className="font-semibold">{vendor.name}</h3>
-                <p className="text-sm text-gray-500">{vendor.email}</p>
+                <h3 className="font-semibold">{boy.name || `ko`}</h3>
+                <p className="text-sm text-gray-500">{boy.email || `ko`}</p>
               </div>
 
               <button
-                onClick={() => activatedelivery(vendor._id)}
+                onClick={() => activatedelivery(boy._id)}
                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
               >
                 Activate
