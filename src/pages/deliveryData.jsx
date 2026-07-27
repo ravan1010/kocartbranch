@@ -47,9 +47,9 @@ const DeliveryList = () => {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {Delivery.map((merchant) => (
+                    {Delivery.map((deliveryBoy) => (
                         <div
-                            key={merchant._id}
+                            key={deliveryBoy._id}
                             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border"
                         >
                             {/* Merchant ID */}
@@ -58,7 +58,7 @@ const DeliveryList = () => {
 
                                 <div className="flex items-center justify-between bg-gray-100 rounded-lg px-3 py-2">
                                     <span className="text-sm font-mono text-gray-700 truncate">
-                                        {merchant._id}
+                                        {deliveryBoy._id}
                                     </span>
 
                                     {/* <button
@@ -74,20 +74,20 @@ const DeliveryList = () => {
                             <div className="space-y-2 text-sm text-gray-700">
                                 <p>
                                     <span className="font-semibold">📧 Email:</span>{" "}
-                                    {merchant.email || "-"}
+                                    {deliveryBoy.email || "-"}
                                 </p>
 
                                 <p>
                                     <span className="font-semibold">📞 Phone:</span>{" "}
-                                    {merchant.Number || "-"}
+                                    {deliveryBoy.Number || "-"}
                                 </p>
                                  <p>
                                     <span className="font-semibold">isOnline :</span>{" "}
-                                    {merchant.isOnline || "-"}
+                                    {deliveryBoy.isOnline || "-"}
                                 </p>
                                 <p>
                                     <span className="font-semibold">isAvailable :</span>{" "}
-                                    {merchant.isAvailable || "-"}
+                                    {deliveryBoy.isAvailable || "-"}
                                 </p>
 
                             </div>
@@ -102,14 +102,14 @@ const DeliveryList = () => {
                                     <div className="flex justify-between">
                                         <span>kocart Amount</span>
                                         <span className="font-semibold">
-                                            ₹{Number(merchant.kocartAmount || 0).toFixed(2)}        
+                                            ₹{Number(deliveryBoy.kocartAmount || 0).toFixed(2)}        
                                         </span>
                                     </div>
 
                                     <div className="flex justify-between">
                                         <span>deliveryBoyAmount Amount</span>
                                         <span className="font-semibold text-green-600">
-                                            ₹{Number(merchant.deliveryBoyAmount || 0).toFixed(2)}        
+                                            ₹{Number(deliveryBoy.deliveryBoyAmount || 0).toFixed(2)}        
                                         </span>
                                     </div>
 
@@ -117,7 +117,7 @@ const DeliveryList = () => {
                                     <div className="flex justify-between border-t pt-2">
                                         <span className="font-semibold">Settlement</span>
                                         <span className="font-bold text-blue-700">
-                                            ₹{Number(merchant.settlementAmount || 0).toFixed(2)}        
+                                            ₹{Number(deliveryBoy.settlementAmount || 0).toFixed(2)}        
                                         </span>
                                     </div>
                                 </div>
@@ -125,13 +125,13 @@ const DeliveryList = () => {
 
                             {/* Button */}
                             <button
-                                onClick={() => navigate(`/kocartpaymentsettlement?kocartPayment=${merchant._id}`)}
+                                onClick={() => navigate(`/kocartpaymentsettlement?kocartPayment=${deliveryBoy._id}`)}
                                 className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
                             >
                               kocart Payment
                             </button>
                             <button
-                                onClick={() => navigate(`/deliverypaymentsettlement?deliveryPayment=${merchant._id}`)}
+                                onClick={() => navigate(`/deliverypaymentsettlement?deliveryPayment=${deliveryBoy._id}`)}
                                 className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
                             >
                               delivery boy Payment
