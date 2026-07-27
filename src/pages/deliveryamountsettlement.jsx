@@ -56,14 +56,14 @@ const DeliveryAmountsettlement = () => {
 
   return (
     <div className="max-w-lg mx-auto bg-white shadow-lg rounded-xl p-6 mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        kocart Payment varify
+      <h2 className="text-2xl font-bold text-center mb-6">
+        Kocart Delivery Payment Settlement
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
-          name="merchantId"
+          name="deliveryBoyID"
           value={form.deliveryBoyID}
           readOnly
           className="w-full border rounded-lg px-4 py-2 bg-gray-100"
@@ -71,8 +71,8 @@ const DeliveryAmountsettlement = () => {
 
         <input
           type="number"
-          name="amount"
-          placeholder="Total Amount"
+          name="deliveryBoyAmount"
+          placeholder="Enter Amount"
           value={form.deliveryBoyAmount}
           onChange={handleChange}
           className="w-full border rounded-lg px-4 py-2"
