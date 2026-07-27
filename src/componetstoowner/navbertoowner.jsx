@@ -23,6 +23,7 @@ const OwnerNavbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <NavLink to="/" className={navLinkClasses}>Dashboard</NavLink>
             <NavLink to="/marchent/data" className={navLinkClasses}>Marchent Data</NavLink>
+            <NavLink to="/deliveryboy/data" className={navLinkClasses}>Delivery boy Data</NavLink>
             <NavLink to="/posts/data" className={navLinkClasses}>posts Data</NavLink>
             <NavLink to="/allorder" className={navLinkClasses}>OrderStatus</NavLink>
 
@@ -41,6 +42,7 @@ const OwnerNavbar = () => {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <NavLink to="/" className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700'}`} onClick={() => setIsOpen(false)}>Dashboard</NavLink>
             <NavLink to="/marchent/data" className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700'}`} onClick={() => setIsOpen(false)}>Marchent Data</NavLink>
+            <NavLink to="/deliveryboy/data" className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700'}`} onClick={() => setIsOpen(false)}>delivery boy Data</NavLink>
             <NavLink to="/posts/data" className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700'}`} onClick={() => setIsOpen(false)}>posts Data</NavLink>
             <NavLink to="/allorder" className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700'}`} onClick={() => setIsOpen(false)}>OrderStatus</NavLink>
           </div>
