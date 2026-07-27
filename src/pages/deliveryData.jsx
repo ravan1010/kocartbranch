@@ -3,145 +3,199 @@ import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 const DeliveryList = () => {
-    const [Delivery, setdelivery] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [delivery, setDelivery] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        getMerchants();
-    }, []);
+  useEffect(() => {
+    getDeliveryPartners();
+  }, []);
 
-    const getMerchants = async () => {
-        try {
-            const res = await api.get("/api/owner/getdeliveryData");
+  const getDeliveryPartners = async () => {
+    try {
+      const res = await api.get("/api/owner/getdeliveryData");
 
-            if (res.data.success) {
-                setdelivery(res.data.deliveryboys);
-            }
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // const copyMerchantId = (id) => {
-    //     navigator.clipboard.writeText(id);
-    //     alert("Merchant ID copied!");
-    // };
-
-    if (loading) {
-        return <h3>Loading...</h3>;
+      if (res.data.success) {
+        setDelivery(res.data.deliveryboys);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
+  };
 
+  if (loading) {
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">
-                Nearby Merchants
-            </h2>
-
-            {Delivery.length === 0 ? (
-                <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500">
-                    No merchants found.
-                </div>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {Delivery.map((deliveryBoy) => (
-                        <div
-                            key={deliveryBoy._id}
-                            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border"
-                        >
-                            {/* Merchant ID */}
-                            <div className="mt-3">
-                                <p className="text-xs text-gray-500 mb-1">Merchant ID</p>
-
-                                <div className="flex items-center justify-between bg-gray-100 rounded-lg px-3 py-2">
-                                    <span className="text-sm font-mono text-gray-700 truncate">
-                                        {deliveryBoy._id}
-                                    </span>
-
-                                    {/* <button
-                                        onClick={() => copyMerchantId(merchant._id)}
-                                        className="ml-3 px-3 py-1 bg-gray-800 text-white text-xs rounded-md hover:bg-gray-900"
-                                    >
-                                        Copy ID
-                                    </button> */}
-                                </div>
-                            </div>
-
-                            {/* Basic Details */}
-                            <div className="space-y-2 text-sm text-gray-700">
-                                <p>
-                                    <span className="font-semibold">📧 Email:</span>{" "}
-                                    {deliveryBoy.email || "-"}
-                                </p>
-
-                                <p>
-                                    <span className="font-semibold">📞 Phone:</span>{" "}
-                                    {deliveryBoy.Number || "-"}
-                                </p>
-                                 <p>
-                                    <span className="font-semibold">isOnline :</span>{" "}
-                                    {deliveryBoy.isOnline || "-"}
-                                </p>
-                                <p>
-                                    <span className="font-semibold">isAvailable :</span>{" "}
-                                    {deliveryBoy.isAvailable || "-"}
-                                </p>
-
-                            </div>
-
-                            {/* Current Stats */}
-                            <div className="mt-5">
-                                <h4 className="font-semibold text-gray-800 mb-2">
-                                    Current Balance
-                                </h4>
-
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span>kocart Amount</span>
-                                        <span className="font-semibold">
-                                            ₹{Number(deliveryBoy.kocartAmount || 0).toFixed(2)}        
-                                        </span>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <span>deliveryBoyAmount Amount</span>
-                                        <span className="font-semibold text-green-600">
-                                            ₹{Number(deliveryBoy.deliveryBoyAmount || 0).toFixed(2)}        
-                                        </span>
-                                    </div>
-
-
-                                    <div className="flex justify-between border-t pt-2">
-                                        <span className="font-semibold">Settlement</span>
-                                        <span className="font-bold text-blue-700">
-                                            ₹{Number(deliveryBoy.settlementAmount || 0).toFixed(2)}        
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Button */}
-                            <button
-                                onClick={() => navigate(`/kocartpaymentsettlement?kocartPayment=${deliveryBoy._id}`)}
-                                className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
-                            >
-                              kocart Payment
-                            </button>
-                            <button
-                                onClick={() => navigate(`/deliverypaymentsettlement?deliveryPayment=${deliveryBoy._id}`)}
-                                className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
-                            >
-                              delivery boy Payment
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
+      <div className="min-h-screen flex items-center justify-center text-xl font-semibold">
+        Loading...
+      </div>
     );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-6">
+
+      {/* Header */}
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+        🚚 Delivery Partners
+      </h1>
+
+      {/* Dashboard */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+
+        <div className="bg-white rounded-xl shadow p-5 text-center">
+          <p className="text-gray-500 text-sm">Partners</p>
+          <h2 className="text-3xl font-bold">{delivery.length}</h2>
+        </div>
+
+        <div className="bg-white rounded-xl shadow p-5 text-center">
+          <p className="text-gray-500 text-sm">Online</p>
+          <h2 className="text-3xl font-bold text-green-600">
+            {delivery.filter((d) => d.isOnline).length}
+          </h2>
+        </div>
+
+        <div className="bg-white rounded-xl shadow p-5 text-center">
+          <p className="text-gray-500 text-sm">Available</p>
+          <h2 className="text-3xl font-bold text-blue-600">
+            {delivery.filter((d) => d.isAvailable).length}
+          </h2>
+        </div>
+
+        <div className="bg-white rounded-xl shadow p-5 text-center">
+          <p className="text-gray-500 text-sm">Busy</p>
+          <h2 className="text-3xl font-bold text-orange-600">
+            {delivery.filter((d) => !d.isAvailable).length}
+          </h2>
+        </div>
+
+      </div>
+
+      {delivery.length === 0 ? (
+        <div className="bg-white rounded-xl shadow p-8 text-center">
+          No Delivery Partners Found.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+          {delivery.map((item) => (
+            <div
+              key={item._id}
+              className="bg-white rounded-2xl shadow-lg border hover:shadow-xl transition p-6"
+            >
+
+              {/* Name */}
+              <h2 className="text-xl font-bold text-gray-800">
+                {item.name || "Delivery Partner"}
+              </h2>
+
+              <p className="text-sm text-gray-500 break-all">
+                {item._id}
+              </p>
+
+              {/* Status */}
+              <div className="flex justify-between mt-5">
+
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    item.isOnline
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {item.isOnline ? "🟢 Online" : "🔴 Offline"}
+                </span>
+
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    item.isAvailable
+                      ? "bg-blue-100 text-blue-700"
+                      : "bg-orange-100 text-orange-700"
+                  }`}
+                >
+                  {item.isAvailable ? "✅ Available" : "🚚 Busy"}
+                </span>
+
+              </div>
+
+              {/* Details */}
+              <div className="mt-5 space-y-2 text-sm">
+
+                <p>
+                  📧 <strong>Email:</strong> {item.email || "-"}
+                </p>
+
+                <p>
+                  📞 <strong>Phone:</strong> {item.Number || "-"}
+                </p>
+
+              </div>
+
+              {/* Balance Cards */}
+              <div className="grid grid-cols-3 gap-3 mt-6">
+
+                <div className="bg-yellow-50 rounded-xl border p-3 text-center">
+                  <p className="text-xs text-gray-500">KOCART</p>
+
+                  <h3 className="font-bold text-yellow-700">
+                    ₹{Number(item.kocartAmount || 0).toFixed(2)}
+                  </h3>
+                </div>
+
+                <div className="bg-green-50 rounded-xl border p-3 text-center">
+                  <p className="text-xs text-gray-500">Earnings</p>
+
+                  <h3 className="font-bold text-green-700">
+                    ₹{Number(item.deliveryBoyAmount || 0).toFixed(2)}
+                  </h3>
+                </div>
+
+                <div className="bg-blue-50 rounded-xl border p-3 text-center">
+                  <p className="text-xs text-gray-500">Settlement</p>
+
+                  <h3 className="font-bold text-blue-700">
+                    ₹{Number(item.settlementAmount || 0).toFixed(2)}
+                  </h3>
+                </div>
+
+              </div>
+
+              {/* Buttons */}
+              <div className="grid grid-cols-2 gap-3 mt-6">
+
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/kocartpaymentsettlement?kocartPayment=${item._id}`
+                    )
+                  }
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-xl font-semibold"
+                >
+                  💰 KOCART
+                </button>
+
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/deliverypaymentsettlement?deliveryPayment=${item._id}`
+                    )
+                  }
+                  className="bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold"
+                >
+                  💵 Earnings
+                </button>
+
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default DeliveryList;
