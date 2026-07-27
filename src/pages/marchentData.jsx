@@ -114,21 +114,23 @@ const MerchantList = () => {
                                     <div className="bg-blue-50 rounded-lg p-3 text-center">
                                         <p className="text-xs text-gray-500">Sales</p>
                                         <p className="font-bold text-blue-700">
-                                            ₹{merchant.lifetimesales ?? 0}
+                                                      ₹{Number(merchant.lifetimesales || 0).toFixed(2)}        
                                         </p>
                                     </div>
 
                                     <div className="bg-green-50 rounded-lg p-3 text-center">
                                         <p className="text-xs text-gray-500">Merchant</p>
                                         <p className="font-bold text-green-700">
-                                            ₹{merchant.lifetimeMarchentAmount ?? 0}
+                                            ₹{Number(merchant.lifetimeMarchentAmount || 0).toFixed(2)}        
+    
                                         </p>
                                     </div>
 
                                     <div className="bg-red-50 rounded-lg p-3 text-center">
                                         <p className="text-xs text-gray-500">Commission</p>
                                         <p className="font-bold text-red-700">
-                                            ₹{merchant.lifetimecommission ?? 0}
+                                            ₹{Number(merchant.lifetimecommission || 0).toFixed(2)}        
+
                                         </p>
                                     </div>
                                 </div>
@@ -144,28 +146,28 @@ const MerchantList = () => {
                                     <div className="flex justify-between">
                                         <span>Current Amount</span>
                                         <span className="font-semibold">
-                                            ₹{merchant.amount ?? 0}
+                                            ₹{Number(merchant.amount || 0).toFixed(2)}        
                                         </span>
                                     </div>
 
                                     <div className="flex justify-between">
                                         <span>Merchant Amount</span>
                                         <span className="font-semibold text-green-600">
-                                            ₹{merchant.marchentAmount ?? 0}
+                                            ₹{Number(merchant.marchentAmount || 0).toFixed(2)}        
                                         </span>
                                     </div>
 
                                     <div className="flex justify-between">
                                         <span>Platform Commission</span>
                                         <span className="font-semibold text-red-600">
-                                            ₹{merchant.platformcommision ?? 0}
+                                            ₹{Number(merchant.platformcommision || 0).toFixed(2)}        
                                         </span>
                                     </div>
 
                                     <div className="flex justify-between border-t pt-2">
                                         <span className="font-semibold">Settlement</span>
                                         <span className="font-bold text-blue-700">
-                                            ₹{merchant.settlementAmount ?? 0}
+                                            ₹{Number(merchant.settlementAmount || 0).toFixed(2)}        
                                         </span>
                                     </div>
                                 </div>
