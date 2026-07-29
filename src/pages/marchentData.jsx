@@ -114,14 +114,14 @@ const MerchantList = () => {
                                     <div className="bg-blue-50 rounded-lg p-3 text-center">
                                         <p className="text-xs text-gray-500">Sales</p>
                                         <p className="font-bold text-blue-700">
-                                                      ₹{Number(merchant.lifetimesales || 0).toFixed(2)}        
+                                                      ₹{Number(merchant.amount || 0).toFixed(2)}        
                                         </p>
                                     </div>
 
                                     <div className="bg-green-50 rounded-lg p-3 text-center">
                                         <p className="text-xs text-gray-500">Merchant</p>
                                         <p className="font-bold text-green-700">
-                                            ₹{Number(merchant.lifetimeMarchentAmount || 0).toFixed(2)}        
+                                            ₹{Number(merchant.marchentAmount || 0).toFixed(2)}        
     
                                         </p>
                                     </div>
@@ -129,7 +129,7 @@ const MerchantList = () => {
                                     <div className="bg-red-50 rounded-lg p-3 text-center">
                                         <p className="text-xs text-gray-500">Commission</p>
                                         <p className="font-bold text-red-700">
-                                            ₹{Number(merchant.lifetimecommission || 0).toFixed(2)}        
+                                            ₹{Number(merchant.platformcommision || 0).toFixed(2)}        
 
                                         </p>
                                     </div>
@@ -138,12 +138,12 @@ const MerchantList = () => {
 
                             {/* Current Stats */}
                             <div className="mt-5">
-                                <h4 className="font-semibold text-gray-800 mb-2">
+                                {/* <h4 className="font-semibold text-gray-800 mb-2">
                                     Current Balance
-                                </h4>
+                                </h4> */}
 
                                 <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
+                                    {/* <div className="flex justify-between">
                                         <span>Current Amount</span>
                                         <span className="font-semibold">
                                             ₹{Number(merchant.amount || 0).toFixed(2)}        
@@ -162,7 +162,7 @@ const MerchantList = () => {
                                         <span className="font-semibold text-red-600">
                                             ₹{Number(merchant.platformcommision || 0).toFixed(2)}        
                                         </span>
-                                    </div>
+                                    </div> */}
 
                                     <div className="flex justify-between border-t pt-2">
                                         <span className="font-semibold">Settlement</span>
